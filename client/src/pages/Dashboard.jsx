@@ -6,6 +6,7 @@ import { useProgress } from '../hooks/useProgress'
 import ProgressBar from '../components/ProgressBar'
 import Sidebar from '../components/Sidebar'
 import AIChat from '../components/AIChat'
+import StudyHeatmap from '../components/StudyHeatmap'
 
 function CourseCard({ course }) {
   const episodes = getEpisodes(course)
@@ -32,7 +33,7 @@ function CourseCard({ course }) {
 }
 
 export default function Dashboard() {
-  const { role } = useApp()
+  const { role, activityLog } = useApp()
   const courses = getCoursesByRole(role)
   return (
     <div className="flex min-h-screen bg-gray-950">
@@ -40,13 +41,14 @@ export default function Dashboard() {
       <main className="flex-1 p-8">
         <h1 className="text-2xl font-bold text-white mb-2">Dashboard</h1>
         <p className="text-gray-400 text-sm mb-8">Your courses for this path</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {courses.map((c, i) => (
             <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
               <CourseCard course={c} />
             </motion.div>
           ))}
         </div>
+        <StudyHeatmap activityLog={activityLog} />
       </main>
       <AIChat />
     </div>

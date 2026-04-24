@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import Sidebar from '../components/Sidebar'
 import AIChat from '../components/AIChat'
 import dsaProblems from '../data/dsa'
+import { useApp } from '../context/AppContext'
 
 const TOPICS = ['All', 'Array', 'String', 'Linked List', 'Tree', 'Graph', 'Dynamic Programming', 'Binary Search', 'Stack', 'Sorting', 'Backtracking', 'Heap', 'Trie', 'Bit Manipulation']
 const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard']
@@ -22,21 +23,14 @@ const patternColors = [
 ]
 
 export default function DSAPage() {
+  const { dsaSolved, syncDsa } = useApp()
   const [topic, setTopic] = useState('All')
   const [difficulty, setDifficulty] = useState('All')
   const [search, setSearch] = useState('')
-  const [solved, setSolved] = useState(() => {
-    try { return new Set(JSON.parse(localStorage.getItem('dsa-solved') || '[]')) }
-    catch { return new Set() }
-  })
 
   function toggleSolved(id) {
-    setSolved(prev => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      localStorage.setItem('dsa-solved', JSON.stringify([...next]))
-      return next
-    })
+    const isSolved = dsaSolved.has(id)
+    syncDsa(id, !isSolved)
   }
 
   const filtered = useMemo(() => dsaProblems.filter(p => {
@@ -46,7 +40,7 @@ export default function DSAPage() {
     return true
   }), [topic, difficulty, search])
 
-  const solvedCount = dsaProblems.filter(p => solved.has(p.id)).length
+  const solvedCount = dsaProblems.filter(p => dsaSolved.has(p.id)).length
 
   return (
     <div className="flex min-h-screen bg-gray-950">
@@ -70,7 +64,7 @@ export default function DSAPage() {
         <div className="flex gap-3 mb-6 flex-wrap">
           {['Easy', 'Medium', 'Hard'].map(d => {
             const total = dsaProblems.filter(p => p.difficulty === d).length
-            const done = dsaProblems.filter(p => p.difficulty === d && solved.has(p.id)).length
+            const done = dsaProblems.filter(p => p.difficulty === d && dsaSolved.has(p.id)).length
             return (
               <div key={d} className={`px-3 py-1.5 rounded-lg border text-xs font-medium ${diffColors[d]}`}>
                 {d}: {done}/{total}
@@ -117,7 +111,7 @@ export default function DSAPage() {
         {/* Problem list */}
         <div className="space-y-2">
           {filtered.map((problem, i) => {
-            const isSolved = solved.has(problem.id)
+            const isSolved = dsaSolved.has(problem.id)
             const patternColor = patternColors[problem.title.charCodeAt(0) % patternColors.length]
             return (
               <motion.div

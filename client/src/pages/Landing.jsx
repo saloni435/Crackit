@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
+import CrackItLogo from '../components/CrackItLogo'
 
 const roles = [
   {
@@ -30,11 +31,11 @@ const roles = [
 ]
 
 export default function Landing() {
-  const { selectRole } = useApp()
+  const { syncRole } = useApp()
   const navigate = useNavigate()
 
-  function handleSelect(roleId) {
-    selectRole(roleId)
+  async function handleSelect(roleId) {
+    await syncRole(roleId)
     navigate('/dashboard')
   }
 
@@ -42,9 +43,11 @@ export default function Landing() {
     <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center p-6">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <div className="text-center mb-12">
-          <div className="text-5xl mb-4">Study</div>
-          <h1 className="text-4xl font-bold text-white mb-3">Namaste Dev Study Plan</h1>
-          <p className="text-gray-400 text-lg">Choose your learning path to get started</p>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <CrackItLogo size={44} />
+            <h1 className="text-4xl font-bold text-white">CrackIt</h1>
+          </div>
+          <p className="text-gray-400 text-lg">Choose your path and start cracking interviews</p>
         </div>
       </motion.div>
 

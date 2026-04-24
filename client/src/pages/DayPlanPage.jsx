@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useApp } from '../context/AppContext'
 import { getCoursesByRole, getEpisodes } from '../data/index'
@@ -11,7 +11,6 @@ function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5) }
 const DSA_PER_DAY = 1
 const HOURS_PER_DAY = 2
 
-// Map difficulty to day range
 function pickDsaForDay(dayIndex, allProblems) {
   const easy = allProblems.filter(p => p.difficulty === 'Easy')
   const medium = allProblems.filter(p => p.difficulty === 'Medium')
@@ -23,13 +22,12 @@ function pickDsaForDay(dayIndex, allProblems) {
 
 function buildPlan(course) {
   const episodes = getEpisodes(course)
-  const shuffledDsa = [...dsaProblems]
   return episodes.map((ep, i) => ({
     day: i + 1,
     episode: ep,
     courseTitle: course.title,
     courseId: course.id,
-    dsa: pickDsaForDay(i, shuffledDsa),
+    dsa: pickDsaForDay(i, dsaProblems),
     schedule: [
       { time: '0:00 – 0:30', activity: 'Review topics', detail: ep.topics.slice(0, 3).join(', ') + (ep.topics.length > 3 ? '...' : '') },
       { time: '0:30 – 1:15', activity: 'Study episode', detail: ep.title },
@@ -45,32 +43,127 @@ const diffColors = {
   Hard: 'text-red-400 bg-red-400/10 border-red-800',
 }
 
+function CalendarView({ plan, selectedCourseId, isDayComplete, studyStartDate, onDayClick }) {
+  const today = new Date()
+  const startDate = studyStartDate ? new Date(studyStartDate) : today
+  const CALENDAR_DAYS = 30
+
+  // Compute streak (consecutive completed days from day 1)
+  let streak = 0
+  for (let i = 1; i <= plan.length; i++) {
+    if (isDayComplete(i)) streak++
+    else break
+  }
+
+  const completedCount = plan.filter(d => isDayComplete(d.day)).length
+
+  function daysSinceStart(dayNum) {
+    const d = new Date(startDate)
+    d.setDate(d.getDate() + dayNum - 1)
+    return d
+  }
+
+  function isToday(dayNum) {
+    const d = daysSinceStart(dayNum)
+    return d.toDateString() === today.toDateString()
+  }
+
+  const calendarDays = Array.from({ length: CALENDAR_DAYS }, (_, i) => i + 1)
+
+  return (
+    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+        <div>
+          <h3 className="text-white font-bold text-sm flex items-center gap-2">
+            📅 30-Day Journey
+            {studyStartDate && (
+              <span className="text-gray-500 font-normal text-xs">
+                Started: {new Date(studyStartDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              </span>
+            )}
+          </h3>
+        </div>
+        <div className="flex items-center gap-4 text-xs">
+          {streak > 0 && (
+            <span className="text-orange-400 font-semibold">🔥 {streak}-day streak</span>
+          )}
+          <span className="text-gray-400">✓ {completedCount} / {Math.min(plan.length, CALENDAR_DAYS)} done</span>
+        </div>
+      </div>
+
+      {/* Calendar grid */}
+      <div className="grid grid-cols-10 gap-1.5">
+        {calendarDays.map(dayNum => {
+          const done = isDayComplete(dayNum)
+          const today_ = isToday(dayNum)
+          const hasPlan = dayNum <= plan.length
+          return (
+            <button
+              key={dayNum}
+              onClick={() => hasPlan && onDayClick(dayNum)}
+              title={hasPlan ? `Day ${dayNum}${done ? ' ✓' : ''}` : `Day ${dayNum} (no episode)`}
+              className={`
+                relative w-full aspect-square rounded-lg text-xs font-bold flex items-center justify-center transition-all
+                ${!hasPlan ? 'bg-gray-800/30 text-gray-700 cursor-default' : 'cursor-pointer'}
+                ${hasPlan && done ? 'bg-green-500 text-white shadow-sm shadow-green-500/30' : ''}
+                ${hasPlan && !done ? 'bg-gray-800 text-gray-500 hover:bg-gray-700 hover:text-gray-300' : ''}
+                ${today_ ? 'ring-2 ring-orange-500 ring-offset-1 ring-offset-gray-900' : ''}
+              `}
+            >
+              {dayNum}
+              {done && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-gray-900" />}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Legend */}
+      <div className="flex items-center gap-4 mt-3 text-xs text-gray-600">
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-500 inline-block" />Done</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-gray-800 inline-block" />Pending</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-gray-800 border border-orange-500 inline-block" />Today</span>
+      </div>
+    </div>
+  )
+}
+
 export default function DayPlanPage() {
-  const { role } = useApp()
+  const { role, user, dayplanCompleted, syncDayplan } = useApp()
   const courses = getCoursesByRole(role)
-  const [selectedCourseId, setSelectedCourseId] = useState(courses[0]?.id || '')
-  const [planGenerated, setPlanGenerated] = useState(false)
-  const [completedDays, setCompletedDays] = useState(() => {
-    try { return new Set(JSON.parse(localStorage.getItem('dayplan-completed') || '[]')) }
-    catch { return new Set() }
-  })
+
+  // Auto-detect which course the user has been working on
+  const activeCourseId = useMemo(() => {
+    for (const c of courses) {
+      if ([...dayplanCompleted].some(k => k.startsWith(`${c.id}-day-`))) return c.id
+    }
+    return courses[0]?.id || ''
+  }, [dayplanCompleted, courses])
+
+  const [selectedCourseId, setSelectedCourseId] = useState(activeCourseId)
+  // Skip course-selection screen if the user already has progress
+  const [planGenerated, setPlanGenerated] = useState(
+    () => courses.some(c => [...dayplanCompleted].some(k => k.startsWith(`${c.id}-day-`)))
+  )
   const [expandedDay, setExpandedDay] = useState(null)
+
+  // When server data arrives after mount, sync to the active course
+  useEffect(() => {
+    if (activeCourseId && activeCourseId !== selectedCourseId) {
+      setSelectedCourseId(activeCourseId)
+      setPlanGenerated(true)
+    }
+  }, [activeCourseId])
 
   const selectedCourse = courses.find(c => c.id === selectedCourseId)
   const plan = useMemo(() => selectedCourse ? buildPlan(selectedCourse) : [], [selectedCourseId])
 
-  function toggleDayComplete(day) {
-    setCompletedDays(prev => {
-      const next = new Set(prev)
-      const key = `${selectedCourseId}-day-${day}`
-      next.has(key) ? next.delete(key) : next.add(key)
-      localStorage.setItem('dayplan-completed', JSON.stringify([...next]))
-      return next
-    })
+  function isDayComplete(day) {
+    return dayplanCompleted.has(`${selectedCourseId}-day-${day}`)
   }
 
-  function isDayComplete(day) {
-    return completedDays.has(`${selectedCourseId}-day-${day}`)
+  function toggleDayComplete(day) {
+    const key = `${selectedCourseId}-day-${day}`
+    syncDayplan(key, !dayplanCompleted.has(key))
   }
 
   const completedCount = plan.filter(d => isDayComplete(d.day)).length
@@ -88,7 +181,7 @@ export default function DayPlanPage() {
           >
             <div className="text-center mb-8">
               <div className="text-4xl mb-3">📅</div>
-              <h1 className="text-2xl font-bold text-white mb-2">Day Wise Study Plan</h1>
+              <h1 className="text-2xl font-bold text-white mb-2">Day Wise Plan</h1>
               <p className="text-gray-400 text-sm">2 hours/day · 1 DSA problem/day · Episode by episode</p>
             </div>
 
@@ -164,9 +257,18 @@ export default function DayPlanPage() {
         </div>
 
         {/* Progress bar */}
-        <div className="w-full bg-gray-800 rounded-full h-2 mb-8">
+        <div className="w-full bg-gray-800 rounded-full h-2 mb-6">
           <div className="bg-orange-500 h-2 rounded-full transition-all duration-500" style={{ width: `${progressPct}%` }} />
         </div>
+
+        {/* 30-Day Calendar */}
+        <CalendarView
+          plan={plan}
+          selectedCourseId={selectedCourseId}
+          isDayComplete={isDayComplete}
+          studyStartDate={user?.studyStartDate}
+          onDayClick={day => setExpandedDay(expandedDay === day ? null : day)}
+        />
 
         {/* Day cards */}
         <div className="space-y-3">

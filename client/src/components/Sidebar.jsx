@@ -1,18 +1,27 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useMemo } from 'react'
 import { useApp } from '../context/AppContext'
 import { getCoursesByRole } from '../data/index'
+import CrackItLogo from './CrackItLogo'
+import { getDueMcqs } from '../pages/RevisionPage'
 
 const roleLabels = { frontend: 'Frontend', fullstack: 'Fullstack', ai: 'AI Engineer' }
 const roleColors = { frontend: 'bg-orange-500', fullstack: 'bg-green-500', ai: 'bg-purple-500' }
 
 export default function Sidebar() {
-  const { role, clearRole } = useApp()
+  const { role, user, logout, mcqState } = useApp()
   const location = useLocation()
   const navigate = useNavigate()
   const courses = getCoursesByRole(role)
 
+  const dueMcqCount = useMemo(() => getDueMcqs(courses, mcqState).length, [mcqState, courses])
+
+  function handleLogout() {
+    logout()
+    navigate('/login')
+  }
+
   function handleChangePath() {
-    clearRole()
     navigate('/')
   }
 
@@ -22,14 +31,28 @@ export default function Sidebar() {
     { to: '/dsa', label: '⚡ DSA Practice' },
     { to: '/interview', label: '🎤 Interview Qs' },
     { to: '/quiz', label: '📝 Quiz' },
+    { to: '/mock-interview', label: '🎯 Mock Interview' },
+    { to: '/revision', label: '🔁 Revision', badge: dueMcqCount > 0 ? dueMcqCount : null },
   ]
 
   return (
     <aside className="w-64 min-h-screen bg-gray-900 border-r border-gray-800 flex flex-col p-4">
+      {/* User info */}
       <div className="mb-6">
-        <span className="text-xl font-bold text-white">StudyPlan</span>
-        <div className={`inline-block mt-2 ml-2 px-2 py-0.5 rounded-full text-xs font-semibold text-white ${roleColors[role]}`}>
-          {roleLabels[role]}
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            {user?.name?.[0]?.toUpperCase() || '?'}
+          </div>
+          <span className="text-white text-sm font-semibold truncate">{user?.name || 'Guest'}</span>
+        </div>
+        <div className="flex items-center gap-2 ml-9">
+          <CrackItLogo size={20} />
+          <span className="text-xl font-bold text-white">CrackIt</span>
+          {role && (
+            <div className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold text-white ${roleColors[role]}`}>
+              {roleLabels[role]}
+            </div>
+          )}
         </div>
       </div>
 
@@ -38,9 +61,14 @@ export default function Sidebar() {
           <Link
             key={l.to}
             to={l.to}
-            className={`block px-3 py-2 rounded-lg text-sm transition-colors ${location.pathname === l.to ? 'bg-orange-500 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+            className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${location.pathname === l.to ? 'bg-orange-500 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
           >
-            {l.label}
+            <span>{l.label}</span>
+            {l.badge && (
+              <span className="bg-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+                {l.badge}
+              </span>
+            )}
           </Link>
         ))}
       </nav>
@@ -60,12 +88,18 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 border-t border-gray-800">
+      <div className="mt-auto pt-4 border-t border-gray-800 space-y-1">
         <button
           onClick={handleChangePath}
           className="w-full text-xs text-gray-500 hover:text-white py-2 px-3 rounded-lg hover:bg-gray-800 transition-colors text-left"
         >
           Change Path
+        </button>
+        <button
+          onClick={handleLogout}
+          className="w-full text-xs text-red-500 hover:text-red-400 py-2 px-3 rounded-lg hover:bg-red-500/10 transition-colors text-left"
+        >
+          Logout
         </button>
       </div>
     </aside>
