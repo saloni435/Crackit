@@ -17,9 +17,11 @@ export default function Sidebar() {
   }
 
   const navLinks = [
-    { to: '/dashboard', label: 'Dashboard' },
-    { to: '/interview', label: 'Interview Qs' },
-    { to: '/quiz', label: 'Quiz' },
+    { to: '/dashboard', label: '🏠 Dashboard' },
+    { to: '/day-plan', label: '📅 Day Wise Plan' },
+    { to: '/dsa', label: '⚡ DSA Practice' },
+    { to: '/interview', label: '🎤 Interview Qs' },
+    { to: '/quiz', label: '📝 Quiz' },
   ]
 
   return (

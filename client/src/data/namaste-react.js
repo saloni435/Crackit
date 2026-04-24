@@ -8,6 +8,7 @@ export default {
       id: 'ep-01',
       number: 1,
       title: 'Inception',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['React CDN setup', 'React.createElement', 'ReactDOM.render', 'JSX basics', 'difference between library and framework'],
       interviewQuestions: [
         { q: 'What is React?', a: 'React is an open-source JavaScript library for building user interfaces, primarily single-page applications. It lets developers compose complex UIs from small, isolated pieces called components, and efficiently updates the DOM using a virtual DOM diffing algorithm.' },
@@ -28,6 +29,7 @@ export default {
       id: 'ep-02',
       number: 2,
       title: 'Igniting our App',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['npm', 'package.json', 'node_modules', 'Parcel bundler', 'Babel', '.gitignore', 'HMR'],
       interviewQuestions: [
         { q: 'What is npm?', a: 'npm (Node Package Manager) is the default package manager for Node.js. It lets you install, share, and manage dependencies via the npm registry. Projects declare dependencies in package.json; running npm install fetches them into node_modules.' },
@@ -48,6 +50,7 @@ export default {
       id: 'ep-03',
       number: 3,
       title: 'Laying the Foundation',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['JSX', 'transpilation', 'React.createElement vs JSX', 'functional components', 'component composition'],
       interviewQuestions: [
         { q: 'What is JSX?', a: 'JSX (JavaScript XML) is a syntax extension that lets you write HTML-like code inside JavaScript. It compiles down to React.createElement calls via Babel. JSX makes component markup readable and co-located with logic.' },
@@ -68,6 +71,7 @@ export default {
       id: 'ep-04',
       number: 4,
       title: 'Talk is Cheap, Show Me the Code',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['building food ordering app UI', 'props', 'passing data', 'config-driven UI', 'optional chaining'],
       interviewQuestions: [
         { q: 'What are props?', a: 'Props (properties) are read-only inputs passed from parent to child component. They flow one-way (top-down) and allow reuse of components with different data. Modifying props directly inside a child is not allowed.' },
@@ -88,6 +92,7 @@ export default {
       id: 'ep-05',
       number: 5,
       title: "Let's Get Hooked",
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['useState hook', 'state vs props', 're-rendering', 'named/default exports', 'file structure'],
       interviewQuestions: [
         { q: 'What is useState?', a: 'useState is a React hook that adds state to functional components. const [value, setValue] = useState(initial) returns the current state and a setter. Calling the setter triggers a re-render with the new value.' },
@@ -108,6 +113,7 @@ export default {
       id: 'ep-06',
       number: 6,
       title: 'Exploring the World',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['useEffect hook', 'API fetching', 'fetch API', 'CORS', 'conditional rendering', 'shimmer UI'],
       interviewQuestions: [
         { q: 'What is useEffect?', a: 'useEffect(fn, deps) runs side effects after render. Common uses: data fetching, subscriptions, manual DOM manipulation. The dependency array controls when it re-runs: [] runs once after mount; [a,b] runs when a or b changes; no deps runs after every render.' },
@@ -128,6 +134,7 @@ export default {
       id: 'ep-07',
       number: 7,
       title: 'Finding the Path',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['React Router v6', 'createBrowserRouter', 'RouterProvider', 'Link', 'useParams', 'Outlet', 'nested routing'],
       interviewQuestions: [
         { q: 'What is React Router?', a: 'React Router is a standard routing library for React that enables client-side routing (navigation without full page reloads). v6 introduced data APIs, loaders, and a cleaner declarative route config.' },
@@ -148,6 +155,7 @@ export default {
       id: 'ep-08',
       number: 8,
       title: "Let's Get Classy",
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['class components', 'constructor', 'render()', 'componentDidMount', 'componentDidUpdate', 'componentWillUnmount', 'lifecycle'],
       interviewQuestions: [
         { q: 'What are class components?', a: 'Pre-hooks React components that extend React.Component. They have lifecycle methods, use this.state for state and this.setState to update. Still supported but functional components with hooks are now preferred.' },
@@ -168,6 +176,7 @@ export default {
       id: 'ep-09',
       number: 9,
       title: 'Optimizing our App',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['custom hooks', 'code splitting', 'lazy loading', 'React.lazy', 'Suspense', 'dynamic import'],
       interviewQuestions: [
         { q: 'What are custom hooks?', a: 'User-defined hooks — functions whose names start with "use" that may call other hooks. They extract and reuse stateful logic between components (e.g., useOnlineStatus, useFetch). Do not call components; call them inside components/hooks.' },
@@ -188,6 +197,7 @@ export default {
       id: 'ep-10',
       number: 10,
       title: 'Jo Dikhta Hai, Vo Bikta Hai',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['Tailwind CSS', 'utility classes', 'responsive design', 'className', 'Tailwind advantages'],
       interviewQuestions: [
         { q: 'What is Tailwind CSS?', a: 'A utility-first CSS framework that provides low-level utility classes (p-4, text-red-500, flex, grid) to style elements directly in markup. No pre-designed components — full control with a consistent design system.' },
@@ -208,6 +218,7 @@ export default {
       id: 'ep-11',
       number: 11,
       title: 'Data is the New Oil',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['Higher-order components', 'controlled vs uncontrolled', 'lifting state up', 'Context API', 'prop drilling'],
       interviewQuestions: [
         { q: 'What is a higher-order component (HOC)?', a: 'A function that takes a component and returns a new enhanced component. Pattern: withAuth(Page) or withLogger(Page). Used for cross-cutting concerns. Hooks have largely replaced HOCs for new code.' },
@@ -228,6 +239,7 @@ export default {
       id: 'ep-12',
       number: 12,
       title: "Let's Build Our Store",
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['Redux Toolkit', 'createSlice', 'configureStore', 'Provider', 'useSelector', 'useDispatch', 'actions', 'reducers'],
       interviewQuestions: [
         { q: 'What is Redux?', a: 'A predictable state container for JavaScript apps. Single store holds the entire state tree; state is read-only; updates happen via pure reducer functions in response to actions. Enables predictable flow and time-travel debugging.' },
@@ -248,6 +260,7 @@ export default {
       id: 'ep-13',
       number: 13,
       title: 'Time for the Test',
+      videoUrl: 'https://namastedev.com/learn/namaste-react',
       topics: ['Jest', 'React Testing Library', 'unit tests', 'integration tests', 'test coverage', 'mocking'],
       interviewQuestions: [
         { q: 'What is Jest?', a: 'A JavaScript testing framework by Facebook. Provides a test runner, assertion library (expect), mocking, and coverage tooling. Zero-config for most projects. Used widely for React testing.' },

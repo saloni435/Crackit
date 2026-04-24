@@ -6,6 +6,8 @@ import CoursePage from './pages/CoursePage'
 import EpisodePage from './pages/EpisodePage'
 import InterviewPage from './pages/InterviewPage'
 import QuizPage from './pages/QuizPage'
+import DSAPage from './pages/DSAPage'
+import DayPlanPage from './pages/DayPlanPage'
 
 function RequireRole({ children }) {
   const { role } = useApp()
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/course/:courseId/episode/:episodeId" element={<RequireRole><EpisodePage /></RequireRole>} />
         <Route path="/interview" element={<RequireRole><InterviewPage /></RequireRole>} />
         <Route path="/quiz" element={<RequireRole><QuizPage /></RequireRole>} />
+        <Route path="/dsa" element={<RequireRole><DSAPage /></RequireRole>} />
+        <Route path="/day-plan" element={<RequireRole><DayPlanPage /></RequireRole>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

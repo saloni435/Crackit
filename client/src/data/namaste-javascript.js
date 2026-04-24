@@ -9,6 +9,8 @@ export default {
       number: 1,
       season: 1,
       title: 'How JavaScript Works & Execution Context',
+      videoUrl: 'https://www.youtube.com/watch?v=pN6jk0uUrD8',
+      videoUrl: 'https://www.youtube.com/watch?v=pN6jk0uUrD8',
       topics: ['execution context', 'call stack', 'global EC', 'memory creation phase', 'code execution phase'],
       interviewQuestions: [
         { q: 'What is an execution context in JavaScript?', a: 'An execution context is the environment in which JavaScript code is evaluated and executed. It contains two components: memory (variable environment) where variables and functions are stored, and code (thread of execution) where code is executed line by line.' },
@@ -30,6 +32,7 @@ export default {
       number: 2,
       season: 1,
       title: 'How JavaScript Code is Executed & Call Stack',
+      videoUrl: 'https://www.youtube.com/watch?v=iLWTnMzWtj4',
       topics: ['call stack mechanics', 'LIFO', 'stack overflow', 'execution phases'],
       interviewQuestions: [
         { q: 'What is the call stack?', a: 'The call stack is a LIFO (Last In First Out) data structure used by JavaScript to keep track of function execution contexts. When a function is called, a new execution context is pushed onto the stack; when it returns, the context is popped off.' },
@@ -51,6 +54,7 @@ export default {
       number: 3,
       season: 1,
       title: 'Hoisting in JavaScript',
+      videoUrl: 'https://www.youtube.com/watch?v=Fnlnw8uY6jo',
       topics: ['variable hoisting', 'function hoisting', 'var vs let/const hoisting behavior'],
       interviewQuestions: [
         { q: 'What is hoisting in JavaScript?', a: 'Hoisting is JavaScript\'s default behavior of moving declarations to the top of their scope during the memory creation phase. Variables declared with var are initialized to undefined, functions are fully hoisted, and let/const are hoisted but not initialized (temporal dead zone).' },
@@ -72,6 +76,7 @@ export default {
       number: 4,
       season: 1,
       title: 'How Functions Work & Variable Environment',
+      videoUrl: 'https://www.youtube.com/watch?v=gSDncyy32DA',
       topics: ['function EC', 'local memory', 'arguments', 'return values'],
       interviewQuestions: [
         { q: 'What happens when a function is invoked?', a: 'A new Function Execution Context is created and pushed onto the call stack. It has its own memory (variable environment) where parameters and local variables live, independent of the calling context. After execution, the context is popped and control returns to the caller with any return value.' },
@@ -93,6 +98,7 @@ export default {
       number: 5,
       season: 1,
       title: 'SHORTEST JS Program – window & this',
+      videoUrl: 'https://www.youtube.com/watch?v=QCRpVw2KXf8',
       topics: ['global object', 'window object', 'this keyword at global scope'],
       interviewQuestions: [
         { q: 'What is the shortest JavaScript program?', a: 'An empty file. Even with no code, the JS engine creates the Global Execution Context, the global object (window in browser), and sets up `this` to point to the global object.' },
@@ -114,6 +120,7 @@ export default {
       number: 6,
       season: 1,
       title: 'undefined vs not defined',
+      videoUrl: 'https://www.youtube.com/watch?v=B7iF6G3EyIk',
       topics: ['undefined type', 'ReferenceError', 'temporal dead zone preview'],
       interviewQuestions: [
         { q: 'What is undefined in JavaScript?', a: 'undefined is a primitive value and a type in JavaScript. It is the default value automatically assigned to variables declared with var during the memory creation phase, and to function parameters that are not passed.' },
@@ -135,6 +142,7 @@ export default {
       number: 7,
       season: 1,
       title: 'The Scope Chain, Scope & Lexical Environment',
+      videoUrl: 'https://www.youtube.com/watch?v=uH-tVicherZA',
       topics: ['lexical environment', 'scope chain', 'outer reference'],
       interviewQuestions: [
         { q: 'What is lexical environment?', a: 'A lexical environment is the local memory of a function along with a reference to the lexical environment of its parent (the environment in which it was physically written). It is created whenever an execution context is created.' },
@@ -156,6 +164,7 @@ export default {
       number: 8,
       season: 1,
       title: 'let & const – Temporal Dead Zone',
+      videoUrl: 'https://www.youtube.com/watch?v=BNC6slYCj50',
       topics: ['TDZ', 'block scope', 'let vs var', 'const immutability'],
       interviewQuestions: [
         { q: 'What is the Temporal Dead Zone (TDZ)?', a: 'The TDZ is the period between entering scope and the actual declaration line for let/const variables. During this time the variable is hoisted but uninitialized; accessing it throws ReferenceError. The TDZ ends at the line where the variable is initialized.' },
@@ -177,6 +186,7 @@ export default {
       number: 9,
       season: 1,
       title: 'BLOCK SCOPE & Shadowing',
+      videoUrl: 'https://www.youtube.com/watch?v=lW_erSjyMak',
       topics: ['block scope', 'variable shadowing', 'let/const in blocks'],
       interviewQuestions: [
         { q: 'What is a block in JavaScript?', a: 'A block is code grouped inside curly braces {}. Blocks allow writing multiple statements where one is expected (e.g., if bodies, loop bodies). let and const declared inside a block are scoped to that block only.' },
@@ -198,6 +208,7 @@ export default {
       number: 10,
       season: 1,
       title: 'Closures in JS',
+      videoUrl: 'https://www.youtube.com/watch?v=qikxEIxsXco',
       topics: ['closure definition', 'lexical scoping', 'closure over variables', 'memory persistence'],
       interviewQuestions: [
         { q: 'What is a closure?', a: 'A closure is a function bundled together with references to its surrounding lexical environment. It gives the function access to variables from its outer scope even after that outer function has finished executing.' },
@@ -219,6 +230,7 @@ export default {
       number: 11,
       season: 1,
       title: 'setTimeout + Closures Interview Question',
+      videoUrl: 'https://www.youtube.com/watch?v=eBTBG4nda2A',
       topics: ['setTimeout with closures', 'loop + closure', 'fix with let/IIFE'],
       interviewQuestions: [
         { q: 'Why does `for (var i=0; i<3; i++) setTimeout(()=>console.log(i), 1000)` log 3,3,3?', a: 'Because var is function-scoped, all three timer callbacks close over the same single i. By the time they fire, the loop has completed and i is 3. All three print 3.' },
@@ -240,6 +252,7 @@ export default {
       number: 12,
       season: 1,
       title: 'CRAZY JS INTERVIEW ft. Closures',
+      videoUrl: 'https://www.youtube.com/watch?v=t1nFAMws5FI',
       topics: ['closure-based interview questions', 'data encapsulation', 'module pattern'],
       interviewQuestions: [
         { q: 'How do closures help with data encapsulation?', a: 'Closures allow you to create private variables — state that is only accessible via exposed methods. The outer function\'s variables are not visible externally, but the returned functions can read/modify them, providing private state like OOP.' },
@@ -261,6 +274,7 @@ export default {
       number: 13,
       season: 1,
       title: 'FIRST CLASS FUNCTIONS & Anonymous Functions',
+      videoUrl: 'https://www.youtube.com/watch?v=SHINoHxvTso',
       topics: ['first-class citizens', 'anonymous functions', 'function expressions vs declarations'],
       interviewQuestions: [
         { q: 'What does "first-class function" mean?', a: 'In JS, functions are first-class citizens — they can be assigned to variables, passed as arguments, returned from other functions, and stored in data structures. This enables higher-order functions, callbacks, and functional programming patterns.' },
@@ -282,6 +296,7 @@ export default {
       number: 14,
       season: 1,
       title: 'Callback Functions & Event Listeners',
+      videoUrl: 'https://www.youtube.com/watch?v=btj35dh3_U8',
       topics: ['callbacks', 'event-driven model', 'addEventListener', 'removing event listeners', 'memory'],
       interviewQuestions: [
         { q: 'What is a callback function?', a: 'A callback is a function passed as an argument to another function, meant to be invoked later — either synchronously (like Array.map) or asynchronously (like setTimeout, fetch). Callbacks are the foundation of async JS.' },
@@ -303,6 +318,7 @@ export default {
       number: 15,
       season: 1,
       title: 'Asynchronous JavaScript & EVENT LOOP',
+      videoUrl: 'https://www.youtube.com/watch?v=8zKuNo4ay8E',
       topics: ['event loop', 'call stack', 'Web APIs', 'callback queue', 'microtask queue'],
       interviewQuestions: [
         { q: 'What is the event loop?', a: 'The event loop is a mechanism that continuously monitors the call stack and the task queues. When the stack is empty, it takes the next callback from the microtask queue (first) or the task queue and pushes it onto the stack for execution.' },
@@ -324,6 +340,7 @@ export default {
       number: 16,
       season: 1,
       title: 'JS Engine EXPOSED – V8 Architecture',
+      videoUrl: 'https://www.youtube.com/watch?v=2WJL19wDH68',
       topics: ['JIT compilation', 'ignition', 'turbofan', 'garbage collection', 'parsing', 'AST'],
       interviewQuestions: [
         { q: 'What is a JavaScript engine?', a: 'A JS engine is a program that executes JavaScript code. It parses source, builds an AST, compiles/interprets, and executes. Examples: V8 (Chrome, Node.js), SpiderMonkey (Firefox), JavaScriptCore (Safari).' },
@@ -345,6 +362,7 @@ export default {
       number: 17,
       season: 1,
       title: 'TRUST ISSUES with setTimeout()',
+      videoUrl: 'https://www.youtube.com/watch?v=nqoudjTtE3I',
       topics: ['setTimeout 0ms', 'timer delay', 'event loop priority'],
       interviewQuestions: [
         { q: 'Does setTimeout guarantee exact delay?', a: 'No. setTimeout guarantees the callback will run no sooner than the specified delay. Actual execution depends on call stack being empty and the event loop reaching the task queue. A blocked main thread can delay it significantly.' },
@@ -366,6 +384,7 @@ export default {
       number: 18,
       season: 1,
       title: 'Higher-Order Functions & Functional Programming',
+      videoUrl: 'https://www.youtube.com/watch?v=HkWxvB1RFF8',
       topics: ['HOF', 'functions as arguments/return values', 'pure functions'],
       interviewQuestions: [
         { q: 'What is a higher-order function (HOF)?', a: 'A higher-order function either takes one or more functions as arguments, returns a function, or both. Examples: Array.map, Array.filter, Array.reduce, addEventListener, setTimeout, and function factories.' },
@@ -387,6 +406,7 @@ export default {
       number: 19,
       season: 1,
       title: 'map, filter & reduce',
+      videoUrl: 'https://www.youtube.com/watch?v=zdp0zrpKzIE',
       topics: ['Array.map', 'Array.filter', 'Array.reduce', 'chaining', 'practical examples'],
       interviewQuestions: [
         { q: 'What does Array.map do?', a: 'map creates a new array by applying a provided function to each element of the original. It is immutable — the original array is unchanged. It always returns an array of the same length.' },
@@ -408,6 +428,7 @@ export default {
       number: 20,
       season: 2,
       title: 'Callback Hell',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX',
       topics: ['callback hell', 'pyramid of doom', 'inversion of control', 'trust issues with callbacks'],
       interviewQuestions: [
         { q: 'What is callback hell?', a: 'Callback hell (or pyramid of doom) is deeply nested callback functions, each dependent on the result of the previous. The code grows rightward with indentation, becoming hard to read, debug, and maintain.' },
@@ -429,6 +450,7 @@ export default {
       number: 21,
       season: 2,
       title: 'Promises',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX',
       topics: ['Promise states', 'pending/fulfilled/rejected', '.then()', 'promise chaining', 'immutability'],
       interviewQuestions: [
         { q: 'What is a Promise?', a: 'A Promise is an object representing the eventual completion or failure of an asynchronous operation. It has three states: pending, fulfilled (resolved with a value), or rejected (failed with a reason). Once settled, a promise is immutable.' },
@@ -450,6 +472,7 @@ export default {
       number: 22,
       season: 2,
       title: 'Creating a Promise, Chaining & Error Handling',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX',
       topics: ['new Promise()', 'resolve/reject', '.catch()', '.finally()', 'promise chain order'],
       interviewQuestions: [
         { q: 'How do you create a Promise manually?', a: 'const p = new Promise((resolve, reject) => { if (success) resolve(value); else reject(error); }); The executor runs synchronously. Call resolve(value) on success or reject(error) on failure.' },
@@ -471,6 +494,7 @@ export default {
       number: 23,
       season: 2,
       title: 'async await',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX',
       topics: ['async keyword', 'await', 'async/await vs promises', 'error handling with try/catch'],
       interviewQuestions: [
         { q: 'What is async/await?', a: 'async/await is syntactic sugar over promises that lets you write asynchronous code that looks synchronous. `async` marks a function as returning a promise; `await` pauses execution until a promise settles, yielding its resolved value.' },
@@ -492,6 +516,7 @@ export default {
       number: 24,
       season: 2,
       title: 'Promise APIs + Interview Questions',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX',
       topics: ['Promise.all()', 'Promise.allSettled()', 'Promise.race()', 'Promise.any()', 'use cases'],
       interviewQuestions: [
         { q: 'What does Promise.all do?', a: 'Promise.all([p1,p2,p3]) returns a promise that fulfills with an array of all values when all input promises fulfill. If any one rejects, the whole Promise.all rejects immediately with that reason (fail-fast).' },
@@ -513,6 +538,7 @@ export default {
       number: 25,
       season: 2,
       title: 'this keyword in JavaScript',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX',
       topics: ['this in global/function/method/arrow context', 'call/apply/bind'],
       interviewQuestions: [
         { q: 'What does `this` refer to in different contexts?', a: 'Global scope: the global object (window/global/globalThis) in non-strict, undefined in strict. Method: the object the method was called on. Function: global object (non-strict) or undefined (strict). Arrow: lexically inherited from enclosing scope. Class: the instance. Constructor: the new instance.' },
