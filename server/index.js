@@ -6,7 +6,7 @@ import authRouter from './routes/auth.js'
 import userRouter from './routes/user.js'
 
 const app = express()
-app.use(cors())
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }))
