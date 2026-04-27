@@ -16,8 +16,8 @@ const roles = [
     id: 'fullstack',
     label: 'Fullstack Engineer',
     icon: 'FS',
-    description: 'End-to-end: JS, React, and Node.js',
-    courses: ['JavaScript', 'React', 'Node.js'],
+    description: 'Master Frontend, Backend, System Design & DevOps',
+    courses: ['JavaScript', 'React', 'Node.js', 'System Design', 'Project Design', 'DevOps'],
     color: 'from-green-500 to-emerald-500',
   },
   {
