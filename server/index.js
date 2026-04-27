@@ -6,6 +6,11 @@ import authRouter from './routes/auth.js'
 import userRouter from './routes/user.js'
 
 const app = express()
+
+if (!process.env.JWT_SECRET) {
+  console.error('CRITICAL ERROR: JWT_SECRET environment variable is not set!')
+}
+
 app.use(cors({ origin: '*' }))
 app.use(express.json())
 
