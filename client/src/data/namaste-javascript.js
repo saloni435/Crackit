@@ -1,6 +1,6 @@
 export default {
   id: 'namaste-javascript',
-  title: 'Namaste JavaScript',
+  title: 'JavaScript',
   icon: '🟨',
   color: '#F7DF1E',
   episodes: [

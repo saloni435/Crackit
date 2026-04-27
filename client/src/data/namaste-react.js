@@ -1,6 +1,6 @@
 export default {
   id: 'namaste-react',
-  title: 'Namaste React',
+  title: 'React',
   icon: '⚛️',
   color: '#61DAFB',
   episodes: [

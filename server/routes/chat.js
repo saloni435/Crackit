@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 1024,
-      system: 'You are a study assistant for Namaste Dev courses by Akshay Saini. Answer questions about JavaScript, React, Node.js, Python, Machine Learning, LLMs, and AI Agents clearly and concisely. Keep responses focused and educational.',
+      system: 'You are a study assistant. Answer questions about JavaScript, React, Node.js, Python, Machine Learning, LLMs, and AI Agents clearly and concisely. Keep responses focused and educational.',
       messages: messages.map(m => ({ role: m.role, content: m.content })),
     })
     res.json({ reply: response.content[0].text })

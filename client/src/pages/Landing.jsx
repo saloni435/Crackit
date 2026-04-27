@@ -9,7 +9,7 @@ const roles = [
     label: 'Frontend Engineer',
     icon: 'UI',
     description: 'Master JavaScript & React from ground up',
-    courses: ['Namaste JavaScript', 'Namaste React'],
+    courses: ['JavaScript', 'React'],
     color: 'from-yellow-500 to-orange-500',
   },
   {
@@ -17,7 +17,7 @@ const roles = [
     label: 'Fullstack Engineer',
     icon: 'FS',
     description: 'End-to-end: JS, React, and Node.js',
-    courses: ['Namaste JavaScript', 'Namaste React', 'Namaste Node.js'],
+    courses: ['JavaScript', 'React', 'Node.js'],
     color: 'from-green-500 to-emerald-500',
   },
   {
@@ -51,7 +51,7 @@ export default function Landing() {
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full items-stretch">
         {roles.map((role, i) => (
           <motion.div
             key={role.id}
@@ -66,7 +66,7 @@ export default function Landing() {
             </div>
             <h2 className="text-xl font-bold text-white mb-2">{role.label}</h2>
             <p className="text-gray-400 text-sm mb-4">{role.description}</p>
-            <div className="space-y-1 mb-6">
+            <div className="space-y-1 mb-8">
               {role.courses.map(c => (
                 <div key={c} className="flex items-center gap-2 text-xs text-gray-500">
                   <span className="text-green-400">+</span> {c}
@@ -74,7 +74,7 @@ export default function Landing() {
               ))}
             </div>
             <button className={`mt-auto w-full py-2 rounded-lg text-sm font-semibold bg-gradient-to-r ${role.color} text-white`}>
-              Start Learning -&gt;
+              Start Learning
             </button>
           </motion.div>
         ))}

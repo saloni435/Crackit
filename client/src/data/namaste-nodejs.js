@@ -1,6 +1,6 @@
 export default {
   id: 'namaste-nodejs',
-  title: 'Namaste Node.js',
+  title: 'Node.js',
   icon: '🟩',
   color: '#68A063',
   episodes: [
