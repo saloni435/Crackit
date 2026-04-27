@@ -22,11 +22,17 @@ function RequireRole({ children }) {
   return role ? children : <Navigate to="/" replace />
 }
 
+function PublicRoute({ children }) {
+  const { user, role } = useApp()
+  if (user) return <Navigate to={role ? "/dashboard" : "/"} replace />
+  return children
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
         <Route path="/" element={<RequireAuth><Landing /></RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth><RequireRole><Dashboard /></RequireRole></RequireAuth>} />
         <Route path="/course/:courseId" element={<RequireAuth><RequireRole><CoursePage /></RequireRole></RequireAuth>} />
