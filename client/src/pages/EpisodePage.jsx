@@ -86,6 +86,16 @@ export default function EpisodePage() {
                 ▶ Watch Video
               </a>
             )}
+            {episode.readingUrl && (
+              <a
+                href={episode.readingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors flex items-center gap-1"
+              >
+                📖 Read Docs
+              </a>
+            )}
             <button
               onClick={() => toggle(episode.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${done ? 'border-green-500 text-green-400 bg-green-500/10' : 'border-gray-700 text-gray-400 hover:border-orange-500 hover:text-white'}`}

@@ -5,12 +5,14 @@ import ai from './ai-engineer'
 import sd from './system-design'
 import pd from './project-design'
 import devops from './devops'
+import css from './css'
+import tailwind from './tailwind'
 
-export const allCourses = { js, react, node, ai, sd, pd, devops }
+export const allCourses = { js, react, node, ai, sd, pd, devops, css, tailwind }
 
 export function getCoursesByRole(role) {
-  if (role === 'frontend') return [js, react]
-  if (role === 'fullstack') return [js, react, node, sd, pd, devops]
+  if (role === 'frontend') return [js, react, css, tailwind]
+  if (role === 'fullstack') return [js, react, css, tailwind, node, sd, pd, devops]
   if (role === 'ai') return [ai]
   return []
 }

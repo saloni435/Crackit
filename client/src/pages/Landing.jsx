@@ -8,8 +8,8 @@ const roles = [
     id: 'frontend',
     label: 'Frontend Engineer',
     icon: 'UI',
-    description: 'Master JavaScript & React from ground up',
-    courses: ['JavaScript', 'React'],
+    description: 'Master JS, React, CSS & Tailwind CSS',
+    courses: ['JavaScript', 'React', 'CSS', 'Tailwind CSS'],
     color: 'from-yellow-500 to-orange-500',
   },
   {
