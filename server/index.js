@@ -7,8 +7,8 @@ import userRouter from './routes/user.js'
 
 const app = express()
 
-if (!process.env.JWT_SECRET) {
-  console.error('CRITICAL ERROR: JWT_SECRET environment variable is not set!')
+if (!process.env.JWT_SECRET || !process.env.CLAUDE_API_KEY) {
+  console.error('CRITICAL ERROR: JWT_SECRET or CLAUDE_API_KEY environment variable is not set!')
 }
 
 app.use(cors({ origin: '*' }))
